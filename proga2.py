@@ -83,7 +83,8 @@ def win_screen():
             if event.type == pygame.QUIT:
                 terminate()
             elif event.type == pygame.KEYDOWN:
-                terminate()
+                if event.key == pygame.K_KP_ENTER:
+                    terminate()
         pygame.display.flip()
         clock.tick(FPS)
 
