@@ -130,7 +130,7 @@ def load_level(filename):
 
 tile_images = {'wall': load_image('box.png')}
 portal_image = load_image('portal.png')
-player_image = load_image('mar.png', -1)
+player_image = [load_image('mar.png', -1), load_image('mar2.png', -1)]
 mob_image = load_image('goomba.png', -1)
 
 tile_width = tile_height = 50
@@ -202,7 +202,7 @@ class Border(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         super().__init__(player_group, all_sprites)
-        self.image = player_image
+        self.image = player_image[1]
         self.rect = self.image.get_rect().move(tile_width * pos_x + 15, tile_height * pos_y - 39)
         self.mask = pygame.mask.from_surface(self.image)
         self.jump_power = 4
@@ -229,10 +229,12 @@ class Player(pygame.sprite.Sprite):
         else:
             self.onGround = False
         if keys[pygame.K_LEFT]:
+            self.image = player_image[0]
             self.rect.x -= 2
             if pygame.sprite.spritecollideany(self, vertical_borders):
                 self.rect.x += 2
         if keys[pygame.K_RIGHT]:
+            self.image = player_image[1]
             self.rect.x += 2
             if pygame.sprite.spritecollideany(self, vertical_borders):
                 self.rect.x -= 2
